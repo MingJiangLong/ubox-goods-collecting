@@ -20,6 +20,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: "审核列表" },
     name: 'ApplyList'
   },
+  {
+    path: '/take-photo',
+    component: () => import('@/views/Camera.vue'),
+    meta: { title: "拍照" },
+    name: 'TakePhoto'
+  },
 
 
 

@@ -2,7 +2,7 @@
   <main>
     <h1>商品主图</h1>
     <div style="margin: 8px">
-      <GoodsCard :goods-info="query" />
+      <GoodsCard :goods-info="query" disable />
     </div>
     <h1>六个位置</h1>
     <div class="img-part">
@@ -10,11 +10,13 @@
         v-for="item in displayImageList.value"
         :desc="item.desc"
         :done-url="item.imageUrl"
+        only-display
       />
       <Image
         v-for="item in imageList.value"
         :desc="item.desc"
         :done-url="item.imageUrl"
+        @after-upload="e => uploadSuccess(item.imagePosition, e)"
       />
     </div>
   </main>
@@ -45,32 +47,32 @@ const imageList = reactive({
   value: [
     {
       desc: "正面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 2,
     },
     {
       desc: "背面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 3,
     },
     {
       desc: "左面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 4,
     },
     {
       desc: "右面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 5,
     },
     {
       desc: "上面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 6,
     },
     {
       desc: "下面",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "",
       imagePosition: 7,
     },
   ],
@@ -109,10 +111,13 @@ const query = computed<Goods>(() => {
 })
 
 const canGoOn = computed(() => {
-  return true
   return imageList.value.every(item => item.imageUrl.length)
 })
-
+function uploadSuccess(index: number, url: string) {
+  let find = imageList.value.find(item => item.imagePosition == index)
+  if (!find) return
+  find.imageUrl = url
+}
 async function onSubmit() {
   if (!canGoOn) return
   try {
@@ -124,7 +129,7 @@ async function onSubmit() {
       }))
     )
 
-    
+    router.push("/apply-list")
   } catch (error: any) {
     console.log(error?.message)
 
@@ -171,7 +176,6 @@ footer {
   border-radius: 8px;
   padding: 25px 12.5px;
   margin: 8px;
-  margin-bottom: 84px;
 }
 .bg-disable {
   background: #d1d4de;

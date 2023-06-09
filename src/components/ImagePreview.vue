@@ -1,0 +1,78 @@
+<template>
+  <Overlay :show="props.show">
+    <div class="submit-success-component">
+      <div>
+        <img :src="props.imageUrl" />
+        <div @click="onOk">重拍</div>
+      </div>
+      <img src="@/assets/image/btn_search_close.png" @click="onClose" />
+    </div>
+  </Overlay>
+</template>
+
+<script setup lang="ts">
+import {} from "vue"
+import { Overlay } from "vant"
+const props = defineProps<{
+  show: boolean
+  imageUrl?: string
+}>()
+const emits = defineEmits<{
+  (e: "onOk"): void
+  (e: "update:show", show: boolean): void
+}>()
+
+function onOk() {
+  emits("onOk")
+}
+function onClose() {
+  emits("update:show", false)
+}
+</script>
+
+<style scoped lang="less">
+.submit-success-component {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 14px;
+  color: #3b3b3b;
+  text-align: center;
+  font-weight: 500;
+  img {
+    width: 44px;
+    height: 44px;
+    margin-top: 22px;
+  }
+
+  div:first-child {
+    width: 304px;
+    height: 390px;
+    border-radius: 8px;
+    background: #ffffff;
+    div:last-child {
+      font-size: 16px;
+      font-weight: 500;
+      width: 122px;
+      height: 38px;
+      border-radius: 22px;
+      color: #737373;
+      background: #f4f6f8;
+      border-radius: 22px;
+      text-align: center;
+      line-height: 38px;
+      margin: auto;
+      margin-top: 19px;
+    }
+    img {
+      width: 278px;
+      height: 278px;
+      margin: 14px;
+    }
+  }
+}
+</style>

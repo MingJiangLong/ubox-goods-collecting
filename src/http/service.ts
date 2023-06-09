@@ -45,4 +45,17 @@ export function submitOrder(productId: number, imageList: UboxImage[]) {
   })
 }
 
+/**
+ * 抠图接口
+ * @param data 
+ * @returns 
+ */
+export function dealPhoto(data: FormData) {
+  return http.post<any, BEResponse<string>>('/ivm/segmentImage', data, {
+    headers: {
+      'Content-Type': "multipart/form-data"
+    }
+  })
+}
+
 
