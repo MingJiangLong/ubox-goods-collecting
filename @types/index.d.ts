@@ -42,6 +42,14 @@ interface Goods {
   typeNameOne: string
   typeNameThree: string
   typeNameTwo: string
+  /**
+   * 申请单号
+   */
+  formNumber: string
+  /** 
+   * 申请时间
+   */
+  createTime: string
 }
 
 interface ApplyDetail extends ApplyBase {

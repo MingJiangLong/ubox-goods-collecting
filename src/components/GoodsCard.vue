@@ -5,9 +5,13 @@
         <img :src="goodsInfo.productUrl" />
       </VanRow>
       <VanRow style="flex: 1">
-        <div>商品ID:{{ goodsInfo.productId }}</div>
-        <div>商品名称:{{ goodsInfo.productName }}</div>
-        <div>商品条码:{{ goodsInfo.productCode }}</div>
+        
+          <div>商品ID:{{ goodsInfo.productId }}</div>
+          <div>商品名称:{{ goodsInfo.productName }}</div>
+          <div>商品条码:{{ goodsInfo.productCode }}</div>
+          <div>申请单据:{{ goodsInfo.formNumber }}</div>
+          <div>申请时间:{{ goodsInfo.createTime }}</div>
+        
       </VanRow>
       <VanRow align="center">
         <div class="goods-card-btn" @click="onRightBtnClick(props.goodsInfo)">
@@ -45,6 +49,7 @@ function onRightBtnClick(data: any) {
   border-radius: 8px;
   padding: 24px 12px;
   color: #737373;
+  line-height: 24px;
 }
 img {
   width: @img-size;

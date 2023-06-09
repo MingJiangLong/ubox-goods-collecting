@@ -20,6 +20,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: "审核列表" },
     name: 'ApplyList'
   },
+  {
+    path: '/apply-list',
+    component: () => import('@/views/ApplyListPage.vue'),
+    meta: { title: "审核详情" },
+    name: 'ApplyList'
+  }
 
 
 
