@@ -1,6 +1,6 @@
-import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
 import GoodsSearchPage from '@/views/GoodsSearchPage.vue'
-GoodsSearchPage
+
 const routes: Array<RouteRecordRaw> = [
 
   {
@@ -21,18 +21,24 @@ const routes: Array<RouteRecordRaw> = [
     name: 'ApplyList'
   },
   {
-    path: '/apply-list',
-    component: () => import('@/views/ApplyListPage.vue'),
+    path: '/apply-detail/:id',
+    component: () => import('@/views/ApplyDetailPage.vue'),
     meta: { title: "审核详情" },
-    name: 'ApplyList'
-  }
+    name: 'ApplyDetail'
+  },
+  // {
+  //   path: '/take-photo',
+  //   component: () => import('@/views/Camera.vue'),
+  //   meta: { title: "拍照" },
+  //   name: 'TakePhoto'
+  // },
 
 
 
 ]
 const router = createRouter({
-  // history: createWebHashHistory(),
-  history: createWebHistory(''),
+  history: createWebHashHistory(),
+  // history: createWebHistory(''),
   routes
 })
 

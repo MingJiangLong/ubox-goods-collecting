@@ -4,17 +4,25 @@
       <VanRow>
         <img :src="goodsInfo.productUrl" />
       </VanRow>
-      <VanRow style="flex: 1">
-        
-          <div>商品ID:{{ goodsInfo.productId }}</div>
-          <div>商品名称:{{ goodsInfo.productName }}</div>
-          <div>商品条码:{{ goodsInfo.productCode }}</div>
+      <div class="desc-item">
+        <div>商品ID:{{ goodsInfo.productId }}</div>
+        <div>商品名称:{{ goodsInfo.productName }}</div>
+        <div>商品条码:{{ goodsInfo.productCode }}</div>
+        <template v-if="isList">
           <div>申请单据:{{ goodsInfo.formNumber }}</div>
           <div>申请时间:{{ goodsInfo.createTime }}</div>
-        
-      </VanRow>
+        </template>
+      </div>
       <VanRow align="center">
-        <div class="goods-card-btn" @click="onRightBtnClick(props.goodsInfo)">
+        <div v-if="props.disable"></div>
+        <div v-else-if="!!goodsInfo.dynamicCompanyId" class="collected">
+          已采集
+        </div>
+        <div
+          v-else
+          class="goods-card-btn"
+          @click="onRightBtnClick(props.goodsInfo)"
+        >
           申请
         </div>
       </VanRow>
@@ -27,6 +35,8 @@ import { computed } from "vue"
 import {} from "vue"
 const props = defineProps<{
   goodsInfo: Goods
+  disable?: boolean
+  isList?: boolean
 }>()
 
 const goodsInfo = computed(() => {
@@ -47,7 +57,7 @@ function onRightBtnClick(data: any) {
   font-size: 14px;
   background: #ffffff;
   border-radius: 8px;
-  padding: 24px 12px;
+  padding: 18px 12px;
   color: #737373;
   line-height: 24px;
 }
@@ -64,5 +74,18 @@ img {
   line-height: 32px;
   border-radius: 16px;
   margin: 0 5px;
+}
+.collected {
+  padding: 0 16px;
+  color: var(--ubox-green);
+  font-weight: 500;
+}
+.desc-item {
+  flex: 1;
+  div {
+    font-size: 14px;
+    color: #737373;
+    font-weight: 400;
+  }
 }
 </style>

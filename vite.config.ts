@@ -6,6 +6,7 @@ import legacy from '@vitejs/plugin-legacy'
 // import { VantResolver } from 'unplugin-vue-components/resolvers';
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/goods-collection-dev',
   plugins: [
     vue(),
     legacy({

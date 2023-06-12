@@ -104,19 +104,19 @@ interface BEResponse<T = any> {
   data: T
 }
 
-interface UboxImage {
-  imageUrl: string
-  imagePosition: |
-  'FIRST' |
-  'FRONT' |
-  'BACK' |
-  'LEFT' |
-  'RIGHT' |
-  'TOP' |
-  'BOTTOM' |
-  'CONTENT' |
-  'INGREDIENTS'
-}
+// interface UboxImage {
+//   imageUrl: string
+//   imagePosition: |
+//   'FIRST' |
+//   'FRONT' |
+//   'BACK' |
+//   'LEFT' |
+//   'RIGHT' |
+//   'TOP' |
+//   'BOTTOM' |
+//   'CONTENT' |
+//   'INGREDIENTS'
+// }
 interface UboxImage {
   imageUrl: string
   imagePosition: number

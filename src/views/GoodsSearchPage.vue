@@ -18,13 +18,14 @@
 <script setup lang="ts">
 import SearchBar from "@/components/SearchBar.vue"
 import GoodsCard from "@/components/GoodsCard.vue"
+import { debounce } from "@/util"
 
-import { reactive, ref, watchEffect } from "vue"
+import { reactive, ref, watch } from "vue"
 import { searchGoods } from "@/http/service"
 import { computed } from "vue"
 import Empty from "@/components/Empty.vue"
 import { useRouter } from "vue-router"
-import { showToast } from "vant"
+import { hideLoading, showLoading, showTxtToast } from '@/util/toast.js'
 const router = useRouter()
 const goodsList = reactive<{ value: Goods[] }>({ value: [] })
 const searchValue = ref<string>("")
@@ -48,27 +49,30 @@ const showSearch = computed(() => {
   return !!!searchValue.value.length
 })
 
-watchEffect(async () => {
-  search()
-})
+watch(
+  searchValue,
+  debounce(() => {search()}, 300),
+  { immediate: true }
+)
 
 async function search() {
   try {
     if (!searchValue.value.length) {
       return (goodsList.value = [])
     }
+    showLoading()
     const result = await searchGoods(searchValue.value)
     goodsList.value = result.data
+    hideLoading()
   } catch (error: any) {
     goodsList.value = []
-    showToast({ message: error?.message })
+    hideLoading()
+    showTxtToast(error?.message)
   }
 }
 </script>
 
 <style scoped lang="less">
-.goods-search-page {
-}
 main {
   background: #f4f6f8;
   flex: 1;

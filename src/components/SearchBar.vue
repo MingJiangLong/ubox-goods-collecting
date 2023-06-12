@@ -8,7 +8,7 @@
         @input="onInput"
       />
     </VanRow>
-    <img src="../assets/image/btn_search_close.png" />
+    <img src="../assets/image/btn_search_close.png" @click="clearBtn" />
   </VanRow>
 </template>
 
@@ -21,6 +21,10 @@ const props = defineProps<{ value: string }>()
 
 function onInput(value: any) {
   emit("update:value", `${value?.target?.value ?? ""}`)
+}
+
+function clearBtn() {
+  emit("update:value", "")
 }
 </script>
 
