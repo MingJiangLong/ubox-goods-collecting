@@ -121,3 +121,9 @@ interface UboxImage {
   imageUrl: string
   imagePosition: number
 }
+
+interface Window{
+  uboxClient:{
+    
+  }
+}
