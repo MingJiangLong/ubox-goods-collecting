@@ -16,10 +16,16 @@
         capture="user"
         @input="onInput"
       />
-      <img :src="props.doneUrl ? props.doneUrl : notDoneImage" />
+
+      <img v-if="props.doneUrl" :src="props.doneUrl" @click="openPreview" />
+      <img v-else :src="notDoneImage" />
       <div class="upload-overlay" v-if="loading">处理中</div>
     </div>
-    <ImagePreview v-model:show="showPreview" :image-url="props.doneUrl" />
+    <ImagePreview
+      v-model:show="showPreview"
+      :image-url="props.doneUrl"
+      @on-take-photo-again="onTakePhotoAgain"
+    />
   </div>
 </template>
 
@@ -52,9 +58,17 @@ async function onInput(e: any) {
     loading.value = false
   }
 }
+function onTakePhotoAgain(e) {
+  showPreview.value = false
+  onInput(e)
+}
 
 const loading = ref(false)
 const showPreview = ref(false)
+
+function openPreview() {
+  showPreview.value = true
+}
 </script>
 
 <style scoped lang="less">

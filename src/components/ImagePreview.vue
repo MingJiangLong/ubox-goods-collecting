@@ -3,7 +3,11 @@
     <div class="submit-success-component">
       <div>
         <img :src="props.imageUrl" />
-        <div @click="onOk">重拍</div>
+
+        <div>
+          <input type="file" accept="image/*" capture="user" @input="onInput" />
+          重拍
+        </div>
       </div>
       <img src="@/assets/image/btn_search_close.png" @click="onClose" />
     </div>
@@ -18,15 +22,16 @@ const props = defineProps<{
   imageUrl?: string
 }>()
 const emits = defineEmits<{
-  (e: "onOk"): void
+  (e: "onTakePhotoAgain", item: any): void
   (e: "update:show", show: boolean): void
 }>()
 
-function onOk() {
-  emits("onOk")
-}
 function onClose() {
   emits("update:show", false)
+}
+
+function onInput(e) {
+  emits("onTakePhotoAgain", e)
 }
 </script>
 
@@ -67,6 +72,7 @@ function onClose() {
       line-height: 38px;
       margin: auto;
       margin-top: 19px;
+      position: relative;
     }
     img {
       width: 278px;
@@ -74,5 +80,15 @@ function onClose() {
       margin: 14px;
     }
   }
+}
+input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
 }
 </style>

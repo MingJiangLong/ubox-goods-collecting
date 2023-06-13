@@ -29,20 +29,28 @@
       提交
     </div>
   </footer>
-  <SubmitSuccess />
+  <SubmitSuccess
+    :show="showSuccess"
+    @on-ok="
+      () => {
+        router.push('/apply-list')
+      }
+    "
+  />
 </template>
 
 <script setup lang="ts">
 import GoodsCard from "@/components/GoodsCard.vue"
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import {} from "vue"
 import { useRoute, useRouter } from "vue-router"
 import Image from "@/components/Image.vue"
 import SubmitSuccess from "@/components/SubmitSuccess.vue"
 import { reactive } from "vue"
 import { submitOrder } from "@/http/service"
-import { hideLoading, showLoading, showTxtToast } from '@/util/toast.js'
+import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
 const router = useRouter()
+const showSuccess = ref(false)
 const imageList = reactive({
   value: [
     {
@@ -131,7 +139,8 @@ async function onSubmit() {
       }))
     )
     hideLoading()
-    router.push("/apply-list")
+    showSuccess.value = true
+    // router.push("/apply-list")
   } catch (error: any) {
     console.log(error?.message)
     hideLoading()

@@ -2,7 +2,7 @@ import { isDev, isProd } from '@/util/callWhenDev'
 import Axios from 'axios'
 import { ykyToken } from "@/util"
 const http = Axios.create({
-  timeout: 1000 * 6,
+  timeout: 1000 * 15,
   timeoutErrorMessage: '服务端繁忙,稍候重试!',
   baseURL: isProd ? 'https://api.uboxol.com' : 'https://api.dev.uboxol.com',
 })
