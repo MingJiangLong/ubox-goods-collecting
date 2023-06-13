@@ -113,13 +113,14 @@ const query = computed<Goods>(() => {
 const canGoOn = computed(() => {
   return imageList.value.every(item => item.imageUrl.length)
 })
+
 function uploadSuccess(index: number, url: string) {
   let find = imageList.value.find(item => item.imagePosition == index)
   if (!find) return
   find.imageUrl = url
 }
 async function onSubmit() {
-  if (!canGoOn) return
+  if (!canGoOn.value) return
   try {
     showLoading()
     await submitOrder(
