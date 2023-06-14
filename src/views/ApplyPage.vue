@@ -4,7 +4,13 @@
     <div style="margin: 8px">
       <GoodsCard :goods-info="query" disable />
     </div>
-    <h1>六个位置</h1>
+    <VanRow align="center">
+      <h1 style="flex: 1">六个位置图</h1>
+
+      <div @click="showTakePhotoTip">
+        <h9 ><VanIcon name="question-o" />拍摄说明</h9>
+      </div>
+    </VanRow>
     <div class="img-part">
       <Image
         v-for="item in displayImageList.value"
@@ -49,6 +55,7 @@ import SubmitSuccess from "@/components/SubmitSuccess.vue"
 import { reactive } from "vue"
 import { submitOrder } from "@/http/service"
 import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
+import { showToast } from "vant"
 const router = useRouter()
 const showSuccess = ref(false)
 const imageList = reactive({
@@ -89,27 +96,27 @@ const displayImageList = reactive({
   value: [
     {
       desc: "正面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/front.7569c5c1.png",
     },
     {
       desc: "背面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/back.10ed3d25.png",
     },
     {
-      desc: "左面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      desc: "左侧图示例",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/left.9d6284b6.png",
     },
     {
-      desc: "右面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      desc: "右侧图示例",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/right.71f014d4.png",
     },
     {
-      desc: "上面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      desc: "顶部图示例",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/top.dcb8fe3e.png",
     },
     {
-      desc: "下面图示例",
-      imageUrl: "https://img.ubox.cn/ubox_mdse/m/23/0.jpg",
+      desc: "底部图示例",
+      imageUrl: "https://h5.uboxol.com/new-products-apply/img/bottom.b5fce837.png",
     },
   ],
 })
@@ -147,12 +154,13 @@ async function onSubmit() {
     showTxtToast(error?.message)
   }
 }
+
+function showTakePhotoTip() {
+  showToast({message:'请将商品实物,放置于白色背景中,拍摄6个位置,系统将自动进行抠图'})
+}
 </script>
 
 <style scoped lang="less">
-.apply-page-container {
-}
-
 h1 {
   font-size: 18px;
   color: #3b3b3b;
@@ -178,7 +186,6 @@ footer {
   border-radius: 25px;
 }
 .img-part {
-  overflow-y: scroll;
   display: grid;
   row-gap: 12.5px;
   column-gap: 12.5px;
@@ -187,11 +194,17 @@ footer {
   border-radius: 8px;
   padding: 25px 12.5px;
   margin: 8px;
+  overflow-x: scroll;
 }
 .bg-disable {
   background: #d1d4de;
 }
 .bg-able {
   background: linear-gradient(-54deg, #ff5f27 4%, #ff7500 100%);
+}
+h9{
+  font-size: 14px;
+  color: #ff7500;
+  padding: 4px 15px;
 }
 </style>

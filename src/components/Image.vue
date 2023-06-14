@@ -67,6 +67,7 @@ const loading = ref(false)
 const showPreview = ref(false)
 
 function openPreview() {
+  if (props.onlyDisplay) return
   showPreview.value = true
 }
 </script>

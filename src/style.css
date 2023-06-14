@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 14px;
   color-scheme: light dark;
@@ -74,12 +74,7 @@ button:focus-visible {
 input {
   color: black;
 }
-#app {
-  /* max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center; */
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -50,6 +50,11 @@ interface Goods {
    * 申请时间
    */
   createTime: string
+
+  /**
+   * 商品条码2(后端字段不统一)
+   */
+  barcode?: string
 }
 
 interface ApplyDetail extends ApplyBase {
@@ -122,8 +127,8 @@ interface UboxImage {
   imagePosition: number
 }
 
-interface Window{
-  uboxClient:{
-    
+interface Window {
+  uboxClient: {
+
   }
 }

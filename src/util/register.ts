@@ -2,14 +2,15 @@ import router from "@/router";
 import { App } from "vue";
 import Vconsole from 'vconsole'
 import callWhenDev from "./callWhenDev";
-import { Row, Col, Button,Uploader, Tab, Tabs } from 'vant'
+import { Row, Col, Button,Uploader, Tab, Tabs,Icon } from 'vant'
 const vantComponent: { [k: string]: any } = {
   Row,
   Col,
   Button,
   Uploader,
   Tab,
-  Tabs
+  Tabs,
+  Icon
 }
 
 
