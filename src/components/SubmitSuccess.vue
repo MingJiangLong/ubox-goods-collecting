@@ -42,7 +42,7 @@ function onOk() {
   div:first-child {
     background: red;
     width: 81%;
-    height: 52%;
+    min-height: 40%;
     border-radius: 8px;
     background: #ffffff;
     div:last-child {
@@ -50,7 +50,7 @@ function onOk() {
       background: #ff7500;
       border-radius: 22px;
       color: #ffffff;
-      margin: 3% 15%;
+      margin: 5% 15%;
     }
   }
 

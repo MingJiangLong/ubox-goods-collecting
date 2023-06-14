@@ -71,22 +71,22 @@ const imageList = reactive({
       imagePosition: 3,
     },
     {
-      desc: "左面",
+      desc: "左侧",
       imageUrl: "",
       imagePosition: 4,
     },
     {
-      desc: "右面",
+      desc: "右侧",
       imageUrl: "",
       imagePosition: 5,
     },
     {
-      desc: "上面",
+      desc: "顶部",
       imageUrl: "",
       imagePosition: 6,
     },
     {
-      desc: "下面",
+      desc: "底部",
       imageUrl: "",
       imagePosition: 7,
     },
