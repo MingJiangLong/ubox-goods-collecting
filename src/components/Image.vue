@@ -13,7 +13,7 @@
         v-if="!!!props.doneUrl"
         type="file"
         accept="image/*"
-        capture="user"
+        capture="environment"
         @input="onInput"
       />
 
