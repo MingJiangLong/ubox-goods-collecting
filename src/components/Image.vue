@@ -35,6 +35,7 @@ import notDoneImage from "@/assets/image/pic_none.png"
 import { ref } from "vue"
 import ImagePreview from "@/components/ImagePreview.vue"
 import { dealPhoto } from "@/http/service"
+import { showToast } from "vant"
 const props = defineProps<{
   doneUrl?: string
   desc?: string
@@ -55,10 +56,11 @@ async function onInput(e: any) {
     emit("afterUpload", result.data)
     loading.value = false
   } catch (error) {
+    showToast(`${props.desc}上传失败,请重试!`)
     loading.value = false
   }
 }
-function onTakePhotoAgain(e) {
+function onTakePhotoAgain(e: any) {
   showPreview.value = false
   onInput(e)
 }
