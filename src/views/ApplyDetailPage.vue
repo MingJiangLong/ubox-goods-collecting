@@ -21,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue"
+import { ref, computed } from "vue"
 import { fetchApplyDetail } from "@/http/service"
 import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
 import GoodsCard from "@/components/GoodsCard.vue"
 import { useRoute } from "vue-router"
+import { onMounted } from "vue"
 const route = useRoute()
 const { id } = route.params
-
 type Status = {
   txt: string
   color: string
@@ -69,14 +69,10 @@ const imgList = computed(() => {
   return list
 })
 
-onMounted(() => {
-  _fetchApplyDetail()
-})
-
 const _fetchApplyDetail = async () => {
   try {
     showLoading()
-    const res = await fetchApplyDetail(+id)
+    const res = await fetchApplyDetail(id as string)
     if (res.data && Object.keys(res.data).length > 0) {
       detailInfo.value = res.data
       const { barcode, productFullName } = res.data
@@ -91,6 +87,9 @@ const _fetchApplyDetail = async () => {
   }
 }
 
+onMounted(()=>{
+  _fetchApplyDetail()
+})
 const imgTit = (position: any) => {
   let tit = ""
   switch (position) {
@@ -118,6 +117,9 @@ const imgTit = (position: any) => {
   }
   return tit
 }
+onMounted(() => {
+  hidden_button.value?.click?.()
+})
 </script>
 
 <style scoped lang="less">
@@ -173,5 +175,9 @@ h1 {
       align-items: center;
     }
   }
+}
+button {
+  height: 0;
+  width: 0;
 }
 </style>

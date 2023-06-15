@@ -2,7 +2,7 @@
   <div class="goods-card-component-container">
     <VanRow align="center">
       <VanRow>
-        <img :src="goodsInfo.productUrl" />
+        <img :src="goodsInfo.productUrl" v-if="goodsInfo.productUrl"/>
       </VanRow>
       <div class="desc-item">
         <div>商品ID:{{ goodsInfo.productId }}</div>

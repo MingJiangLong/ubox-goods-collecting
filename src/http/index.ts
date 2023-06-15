@@ -1,9 +1,10 @@
 import { isDev, isProd } from '@/util/callWhenDev'
+// import { isProd } from '@/util/callWhenDev'
 import Axios from 'axios'
 import { ykyToken } from "@/util"
 const http = Axios.create({
   timeout: 1000 * 15,
-  timeoutErrorMessage: '服务端繁忙,稍候重试!',
+  timeoutErrorMessage: 'timeout,try again!',
   baseURL: isProd ? 'https://api.uboxol.com' : 'https://api.dev.uboxol.com',
 })
 const PREFIX_URL = '/newgoods'
@@ -12,28 +13,35 @@ const DEV_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiZXNjb3J0LWFw
 
 http.interceptors.request.use(async (config) => {
   try {
-    config.url = `${PREFIX_URL}${config.url}`
-    config.headers['Authorization'] = `Bearer ${isDev ? DEV_TOKEN : await ykyToken()}`
+    config.url = `${PREFIX_URL}${config.url}`;
+
+    let token = DEV_TOKEN;
+
+    if (!isDev) {
+      token = await ykyToken()
+    }
+    config.headers['Authorization'] = `Bearer ${token}`
     return config
   } catch (error: any) {
+    console.log("axios request error:", error);
     return Promise.reject(error)
   }
 })
 
 http.interceptors.response.use((data) => {
-  if (data?.data?.code != 200) throw new Error((data?.data?.message || data?.data?.msg) ?? '服务器异常')
+  if (data?.data?.code != 200) return Promise.reject((data?.data?.message || data?.data?.msg) ?? '服务器异常')
   return data.data
 }, error => {
-  // TODO:判断是否鉴权失败，失败之后获取token重新发起请求
-  let retry = error?.config?.headers?.retry;
-  if (retry == undefined || retry == '0') {
-    return Promise.reject(error)
-  }
+  return Promise.reject(error)
+  // let retry = error?.config?.headers?.retry;
+  // if (retry == undefined || retry == '0') {
+  //   return Promise.reject(error)
+  // }
 
-  error.config.headers.retry -= 1;
-  setTimeout(() => {
-    return http(error.config)
-  }, 1)
+  // error.config.headers.retry -= 1;
+  // setTimeout(() => {
+  //   return http(error.config)
+  // }, 1)
 
 })
 

@@ -28,7 +28,7 @@ export function fetchApplyList(searchText = '', status = []) {
  * @param id 
  * @returns 
  */
-export function fetchApplyDetail(id: number) {
+export function fetchApplyDetail(id: number | string) {
   return http.get<any, BEResponse<ApplyDetail>>(`/GoodsCapture/detail/${id}`)
 }
 

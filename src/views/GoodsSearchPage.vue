@@ -25,7 +25,7 @@ import { searchGoods } from "@/http/service"
 import { computed } from "vue"
 import Empty from "@/components/Empty.vue"
 import { useRouter } from "vue-router"
-import { hideLoading, showLoading, showTxtToast } from '@/util/toast.js'
+import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
 const router = useRouter()
 const goodsList = reactive<{ value: Goods[] }>({ value: [] })
 const searchValue = ref<string>("")
@@ -51,7 +51,9 @@ const showSearch = computed(() => {
 
 watch(
   searchValue,
-  debounce(() => {search()}, 300),
+  debounce(() => {
+    search()
+  }, 300),
   { immediate: true }
 )
 
