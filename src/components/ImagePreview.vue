@@ -2,10 +2,9 @@
   <Overlay :show="props.show">
     <div class="submit-success-component">
       <div>
-        <img :src="props.imageUrl" />
-
+        <img :src="props.imageUrl" v-if="props.imageUrl"/>
         <div>
-          <input type="file" accept="image/*" capture="user" @input="onInput" />
+          <input type="file" accept="image/*" capture="environment" @input="onInput" />
           重拍
         </div>
       </div>

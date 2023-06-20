@@ -6,9 +6,9 @@ import viteCompression from 'vite-plugin-compression'
 // import Components from 'unplugin-vue-components/vite';
 // import { VantResolver } from 'unplugin-vue-components/resolvers';
 // https://vitejs.dev/config/
-
+const isProd = process.argv[process.argv.length - 1] == 'prod'
 export default defineConfig({
-  base: '/goods-collection-dev',
+  base: !isProd ? '/goods-collection-dev' : '/goods-collection',
   plugins: [
     vue(),
     viteCompression(),
@@ -45,14 +45,14 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: "../h5/goods-collection-dev",
+    outDir: `../h5/goods-collection${isProd ? '' : '-dev'}`,
     emptyOutDir: true,
     minify: "terser",
     terserOptions: {
       compress: {
         //生产环境时移除console
-        // drop_console: true,
-        // drop_debugger: true,
+        drop_console: true,
+        drop_debugger: true,
       },
     },
     chunkSizeWarningLimit: 1000,

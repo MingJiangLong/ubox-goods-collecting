@@ -130,5 +130,6 @@ interface UboxImage {
 interface Window {
   uboxClient: {
     getToken: (callback: (token: string) => void) => void
-  }
+  },
+  UBOX_TOKEN?: string
 }

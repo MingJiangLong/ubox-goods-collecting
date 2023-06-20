@@ -11,6 +11,7 @@ export const debounce = (func, delay) => {
 }
 
 export const ykyToken = () => {
+
   return new Promise((resolve, reject) => {
     try {
       window.uboxClient.getToken(function (token) {

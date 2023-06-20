@@ -87,9 +87,15 @@ const _fetchApplyDetail = async () => {
   }
 }
 
-onMounted(()=>{
+onMounted(() => {
   _fetchApplyDetail()
 })
+
+// watchEffect(() => {
+//   // if (didMounted.value) {
+//   //   _fetchApplyDetail()
+//   // }
+// })
 const imgTit = (position: any) => {
   let tit = ""
   switch (position) {
@@ -117,9 +123,6 @@ const imgTit = (position: any) => {
   }
   return tit
 }
-onMounted(() => {
-  hidden_button.value?.click?.()
-})
 </script>
 
 <style scoped lang="less">
