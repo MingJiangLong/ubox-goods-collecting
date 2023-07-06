@@ -1,4 +1,9 @@
 interface Goods {
+  /**
+   * 2已采集
+   * 1审核中
+   */
+  productStatus?: 1 | 2
   brandName: string,
   capacity: number
   capacityName: string

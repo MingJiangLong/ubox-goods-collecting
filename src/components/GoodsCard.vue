@@ -2,7 +2,7 @@
   <div class="goods-card-component-container">
     <VanRow align="center">
       <VanRow>
-        <img :src="goodsInfo.productUrl" v-if="goodsInfo.productUrl"/>
+        <img :src="goodsInfo.productUrl" v-if="goodsInfo.productUrl" />
       </VanRow>
       <div class="desc-item">
         <div>商品ID:{{ goodsInfo.productId }}</div>
@@ -15,8 +15,14 @@
       </div>
       <VanRow align="center">
         <div v-if="props.disable"></div>
-        <div v-else-if="!!goodsInfo.dynamicCompanyId" class="collected">
-          已采集
+        <div
+          v-else-if="
+            goodsInfo.productStatus == 1 || goodsInfo.productStatus == 2
+          "
+          class="collected"
+          :style="{ color: goodsInfo.productStatus == 1 ? 'red' : '#39BF5E' }"
+        >
+          {{ goodsInfo.productStatus == 1 ? "审核中" : "已采集" }}
         </div>
         <div
           v-else

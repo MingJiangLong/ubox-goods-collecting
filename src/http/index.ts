@@ -24,10 +24,7 @@ http.interceptors.request.use(async (config) => {
 })
 
 http.interceptors.response.use(async (data) => {
-
   if (data?.data?.code == 500 && !window.UBOX_TOKEN && !data.config.headers['retry_token_done']) {
-    console.log("执行？？？");
-    
     await getToken(true)
     data.config.headers['retry_token_done'] = true
     return http(data.config)
