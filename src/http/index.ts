@@ -2,7 +2,7 @@ import { isProd } from '@/util/callWhenDev'
 import Axios from 'axios'
 import { getToken } from '@/util/token'
 const http = Axios.create({
-  timeout: 1000 * 15,
+  timeout: 1000 * 30,
   timeoutErrorMessage: 'timeout,try again!',
   baseURL: isProd ? 'https://api.uboxol.com' : 'https://api.dev.uboxol.com',
 })
@@ -16,7 +16,7 @@ http.interceptors.request.use(async (config) => {
     if (!config.url?.startsWith(PREFIX_URL)) {
       config.url = `${PREFIX_URL}${config.url}`;
     }
-    config.headers['Authorization'] = `Bearer ${await getToken()}`
+    config.headers['Authorization'] = `Bearer ${window.ucloud?.token}`
     return config
   } catch (error: any) {
     return Promise.reject(error)
@@ -29,7 +29,7 @@ http.interceptors.response.use(async (data) => {
     data.config.headers['retry_token_done'] = true
     return http(data.config)
   }
-  
+
   if (data?.data?.code != 200) throw new Error((data?.data?.message || data?.data?.msg) ?? '服务器异常')
   return data.data
 }, async (error) => {

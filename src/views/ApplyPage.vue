@@ -8,7 +8,7 @@
       <h1 style="flex: 1">六个位置图</h1>
 
       <div @click="showTakePhotoTip">
-        <h9 ><VanIcon name="question-o" />拍摄说明</h9>
+        <h5 ><VanIcon name="question-o" />拍摄说明</h5>
       </div>
     </VanRow>
     <div class="img-part">
@@ -202,7 +202,7 @@ footer {
 .bg-able {
   background: linear-gradient(-54deg, #ff5f27 4%, #ff7500 100%);
 }
-h9{
+h5{
   font-size: 14px;
   color: #ff7500;
   padding: 4px 15px;
