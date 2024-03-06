@@ -4,51 +4,53 @@
     <div style="margin: 8px">
       <GoodsCard :goods-info="query" disable />
     </div>
+    <h1>扫描条码 <span style="color: #bbbbbb; font-size: 14px;">(组合商品请填写vms条码)</span></h1>
+    <div class="sys-scan">
+      <input v-model="scannedCode" placeholder="请输入或者扫描条码" />
+      <van-icon name="scan" @click="onOpenScan" />
+    </div>
     <VanRow align="center">
       <h1 style="flex: 1">六个位置图</h1>
 
       <div @click="showTakePhotoTip">
-        <h5 ><VanIcon name="question-o" />拍摄说明</h5>
+        <h5>
+          <VanIcon name="question-o" />拍摄说明
+        </h5>
       </div>
     </VanRow>
     <div class="img-part">
       <Image
-        v-for="item in displayImageList.value"
-        :desc="item.desc"
-        :done-url="item.imageUrl"
-        only-display
-      />
+             v-for="item in displayImageList.value"
+             :desc="item.desc"
+             :done-url="item.imageUrl"
+             only-display />
       <Image
-        v-for="item in imageList.value"
-        :desc="item.desc"
-        :done-url="item.imageUrl"
-        @after-upload="e => uploadSuccess(item.imagePosition, e)"
-      />
+             v-for="item in imageList.value"
+             :desc="item.desc"
+             :done-url="item.imageUrl"
+             @after-upload="e => uploadSuccess(item.imagePosition, e)" />
     </div>
   </main>
   <footer>
     <div
-      class="bottom-btn"
-      :class="canGoOn ? 'bg-able' : 'bg-disable'"
-      @click="onSubmit"
-    >
+         class="bottom-btn"
+         :class="canGoOn ? 'bg-able' : 'bg-disable'"
+         @click="onSubmit">
       提交
     </div>
   </footer>
   <SubmitSuccess
-    :show="showSuccess"
-    @on-ok="
-      () => {
+                 :show="showSuccess"
+                 @on-ok="() => {
         router.push('/apply-list')
       }
-    "
-  />
+        " />
 </template>
 
 <script setup lang="ts">
 import GoodsCard from "@/components/GoodsCard.vue"
-import { computed, ref } from "vue"
-import {} from "vue"
+import { computed, onMounted, onUnmounted, ref } from "vue"
+import { } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import Image from "@/components/Image.vue"
 import SubmitSuccess from "@/components/SubmitSuccess.vue"
@@ -56,8 +58,11 @@ import { reactive } from "vue"
 import { submitOrder } from "@/http/service"
 import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
 import { showToast } from "vant"
+import { eventBus } from "simple-jseventbus"
 const router = useRouter()
 const showSuccess = ref(false)
+const scannedCode = ref("")
+
 const imageList = reactive({
   value: [
     {
@@ -126,7 +131,7 @@ const query = computed<Goods>(() => {
 })
 
 const canGoOn = computed(() => {
-  return imageList.value.every(item => item.imageUrl.length)
+  return imageList.value.every(item => item.imageUrl.length) && scannedCode.value.length
 })
 
 function uploadSuccess(index: number, url: string) {
@@ -135,6 +140,7 @@ function uploadSuccess(index: number, url: string) {
   find.imageUrl = url
 }
 async function onSubmit() {
+
   if (!canGoOn.value) return
   try {
     showLoading()
@@ -143,7 +149,8 @@ async function onSubmit() {
       imageList.value.map(item => ({
         imageUrl: item.imageUrl,
         imagePosition: item.imagePosition,
-      }))
+      })),
+      scannedCode.value
     )
     hideLoading()
     showSuccess.value = true
@@ -156,8 +163,30 @@ async function onSubmit() {
 }
 
 function showTakePhotoTip() {
-  showToast({message:'请将商品实物,放置于白色背景中,拍摄6个位置,系统将自动进行抠图'})
+  showToast({ message: '请将商品实物,放置于白色背景中,拍摄6个位置,系统将自动进行抠图' })
 }
+
+function onOpenScan() {
+  try {
+    const data = {
+      code: 50004,
+      msg: '打开扫码页面',
+      data: ''
+    }
+    window?.ucloud.postMessage(JSON.stringify(data))
+  } catch (err) {
+    showToast({ message: "调用客户端扫码功能失败" })
+  }
+}
+
+onMounted(() => {
+  eventBus.addListener("goods-face-collect-receive-scan-result", (value: string) => {
+    scannedCode.value = value
+  })
+})
+onUnmounted(()=>{
+  eventBus.clearEventByName("goods-face-collect-receive-scan-result")
+})
 </script>
 
 <style scoped lang="less">
@@ -177,6 +206,7 @@ footer {
   align-items: center;
   color: #ffffff;
 }
+
 .bottom-btn {
   height: 50px;
   width: 332px;
@@ -185,6 +215,7 @@ footer {
   background: #d1d4de;
   border-radius: 25px;
 }
+
 .img-part {
   display: grid;
   row-gap: 12.5px;
@@ -196,15 +227,39 @@ footer {
   margin: 8px;
   overflow-x: scroll;
 }
+
 .bg-disable {
   background: #d1d4de;
 }
+
 .bg-able {
   background: linear-gradient(-54deg, #ff5f27 4%, #ff7500 100%);
 }
-h5{
+
+h5 {
   font-size: 14px;
   color: #ff7500;
   padding: 4px 15px;
+}
+
+.sys-scan {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 25px 12.5px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+
+  input {
+    flex: 1;
+    border-radius: 20px;
+    margin: 0;
+    padding: 0;
+    // border-color: #BBBBBB;
+    border: 1px #BBBBBB solid;
+    padding: 5px 20px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
 }
 </style>

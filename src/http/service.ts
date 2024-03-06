@@ -38,10 +38,11 @@ export function fetchApplyDetail(id: number | string) {
  * @param imageList 
  * @returns 
  */
-export function submitOrder(productId: number, imageList: UboxImage[]) {
+export function submitOrder(productId: number, imageList: UboxImage[],scanBarcode:string) {
   return http.post('/GoodsCapture/submit', {
     productId,
-    imageList
+    imageList,
+    scanBarcode
   })
 }
 

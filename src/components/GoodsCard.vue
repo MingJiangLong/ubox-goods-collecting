@@ -7,7 +7,8 @@
       <div class="desc-item">
         <div>商品ID:{{ goodsInfo.productId }}</div>
         <div>商品名称:{{ goodsInfo.productName }}</div>
-        <div>商品条码:{{ goodsInfo.productCode || goodsInfo.barcode }}</div>
+        <div>vms条码:{{ goodsInfo.productCode || goodsInfo.barcode }}</div>
+        <div v-if="goodsInfo.scanBarcode">扫描条码:{{ goodsInfo.scanBarcode }}</div>
         <template v-if="isList">
           <div>申请单据:{{ goodsInfo.formNumber }}</div>
           <div>申请时间:{{ goodsInfo.createTime }}</div>
@@ -16,19 +17,16 @@
       <VanRow align="center">
         <div v-if="props.disable"></div>
         <div
-          v-else-if="
-            goodsInfo.productStatus == 1 || goodsInfo.productStatus == 2
+             v-else-if="goodsInfo.productStatus == 1 || goodsInfo.productStatus == 2
           "
-          class="collected"
-          :style="{ color: goodsInfo.productStatus == 1 ? 'red' : '#39BF5E' }"
-        >
+             class="collected"
+             :style="{ color: goodsInfo.productStatus == 1 ? 'red' : '#39BF5E' }">
           {{ goodsInfo.productStatus == 1 ? "审核中" : "已采集" }}
         </div>
         <div
-          v-else
-          class="goods-card-btn"
-          @click="onRightBtnClick(props.goodsInfo)"
-        >
+             v-else
+             class="goods-card-btn"
+             @click="onRightBtnClick(props.goodsInfo)">
           申请
         </div>
       </VanRow>
@@ -38,7 +36,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue"
-import {} from "vue"
+import { } from "vue"
 const props = defineProps<{
   goodsInfo: Goods
   disable?: boolean
@@ -59,6 +57,7 @@ function onRightBtnClick(data: any) {
 
 <style scoped lang="less">
 @img-size: 60px;
+
 .goods-card-component-container {
   font-size: 14px;
   background: #ffffff;
@@ -67,11 +66,13 @@ function onRightBtnClick(data: any) {
   color: #737373;
   line-height: 24px;
 }
+
 img {
   width: @img-size;
   height: @img-size;
   margin-right: 8px;
 }
+
 .goods-card-btn {
   color: #ffffff;
   background: var(--ubox-yellow);
@@ -81,13 +82,16 @@ img {
   border-radius: 16px;
   margin: 0 5px;
 }
+
 .collected {
   padding: 0 16px;
   color: var(--ubox-green);
   font-weight: 500;
 }
+
 .desc-item {
   flex: 1;
+
   div {
     font-size: 14px;
     color: #737373;

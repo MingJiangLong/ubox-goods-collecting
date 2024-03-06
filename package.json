@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "test": "vue-tsc && vite build --mode testing",
+    "build:testing": "vue-tsc && vite build --mode testing",
     "build": "vue-tsc && vite build --mode prod"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "exif-js": "git+https://github.com/MingJiangLong/exif-js.git",
     "piexifjs": "^1.0.6",
     "postcss-pxtorem": "^6.0.0",
+    "simple-jseventbus": "^1.0.3",
     "terser": "^5.17.7",
     "vant": "^4.4.1",
     "vue": "^3.2.47",

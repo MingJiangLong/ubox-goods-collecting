@@ -4,7 +4,7 @@ interface Goods {
    * 1审核中
    */
   productStatus?: 1 | 2
-  brandName: string,
+  brandName: string
   capacity: number
   capacityName: string
   dynamicCompanyId: number
@@ -51,7 +51,7 @@ interface Goods {
    * 申请单号
    */
   formNumber: string
-  /** 
+  /**
    * 申请时间
    */
   createTime: string
@@ -60,6 +60,7 @@ interface Goods {
    * 商品条码2(后端字段不统一)
    */
   barcode?: string
+  scanBarcode?: string
 }
 
 interface ApplyDetail extends ApplyBase {
@@ -135,9 +136,11 @@ interface UboxImage {
 interface Window {
   uboxClient: {
     getToken: (callback: (token: string) => void) => void
-  },
+  }
   ucloud: {
     token: string
+    postMessage: (v: string) => void
   }
   UBOX_TOKEN?: string
+  completeScan?: (value: string) => void
 }
