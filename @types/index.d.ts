@@ -138,7 +138,7 @@ interface Window {
     getToken: (callback: (token: string) => void) => void
   }
   ucloud: {
-    token: string
+    token: () => string
     postMessage: (v: string) => void
   }
   UBOX_TOKEN?: string
