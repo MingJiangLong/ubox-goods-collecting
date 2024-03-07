@@ -7,7 +7,8 @@
     <h1>扫描条码 <span style="color: #bbbbbb; font-size: 14px;">(组合商品请填写vms条码)</span></h1>
     <div class="sys-scan">
       <input v-model="scannedCode" placeholder="请输入或者扫描条码" />
-      <van-icon name="scan" @click="onOpenScan" />
+      <img :src="scanImg" style="width: .7rem;height: .7rem;"  @click="onOpenScan"/>
+      <!-- <van-icon name="scan" @click="onOpenScan" /> -->
     </div>
     <VanRow align="center">
       <h1 style="flex: 1">六个位置图</h1>
@@ -59,6 +60,7 @@ import { submitOrder } from "@/http/service"
 import { hideLoading, showLoading, showTxtToast } from "@/util/toast.js"
 import { showToast } from "vant"
 import { eventBus } from "simple-jseventbus"
+import scanImg from "@/assets/image/scan.png"
 const router = useRouter()
 const showSuccess = ref(false)
 const scannedCode = ref("")
@@ -184,7 +186,7 @@ onMounted(() => {
     scannedCode.value = value
   })
 })
-onUnmounted(()=>{
+onUnmounted(() => {
   eventBus.clearEventByName("goods-face-collect-receive-scan-result")
 })
 </script>
