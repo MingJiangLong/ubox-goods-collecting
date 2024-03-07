@@ -173,7 +173,7 @@ function onOpenScan() {
     const data = {
       code: 50004,
       msg: '打开扫码页面',
-      data: ''
+      data: {}
     }
     window?.ucloud.postMessage(JSON.stringify(data))
   } catch (err) {
